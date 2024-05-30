@@ -4,46 +4,59 @@ declare(strict_types=1);
 
 function signup_form(){
     if (!isset($_SESSION["user_id"])) {
-        echo '<div>
-        <h1>Signup</h1>
-        <form action="includes/signup/signup.inc.php" method="post">';
+        echo '
+        <main>
+        <section class="section-1">
+        <div class="content">
+        <p class="signup-p">Stay motivated with progress tracking.</p>
+        <p class="signup-p"> 
+        Log your workouts effortlessly.</p>
+        <button id="openModalBtn">Sign Up</button>
+        <p>Start now risk free! 30 Day money-back guarantee</p>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Sign Up</h2>
+                    <form id="signUpForm" class="signup_form" action="includes/signup/signup.inc.php" method="post">';
 
-            if (isset($_SESSION["signup_data"]["username"]) && !isset($_SESSION["errors_signup"]["username_taken"])) {
+                    if (isset($_SESSION["signup_data"]["username"]) && !isset($_SESSION["errors_signup"]["username_taken"])) {
     
-                echo '<label for="username">Username</label>
-                <input type="text" name="username" value="'.$_SESSION["signup_data"]["username"].'">';
+                        echo '
+                        <input class="user_input" type="text" id="username" name="username" placeholder="Username" value="'.$_SESSION["signup_data"]["username"].'" required>';
     
-            } else {
+                    } else {
     
-                echo '<label for="username">Username</label>
-                <input type="text" name="username">';
+                        echo '
+                        <input class="user_input" type="text" id="username" name="username" placeholder="Username" required>';
     
-            }
+                    }
     
-            echo '<br>
-            <label for="pwd">Password</label>
-            <input type="password" name="pwd">
-            <br>';
+                    echo '
+                        <br>
+                        <input class="user_input" type="password" id="pwd" name="pwd" placeholder="Password" required>
+                        <br>';
     
-            if (isset($_SESSION["signup_data"]["email"]) && !isset($_SESSION["errors_signup"]["email_used"]) && !isset($_SESSION["errors_signup"]["invalid_email"])) {
+                    if (isset($_SESSION["signup_data"]["email"]) && !isset($_SESSION["errors_signup"]["email_used"]) && !isset($_SESSION["errors_signup"]["invalid_email"])) {
     
-                echo '<label for="email">Email</label>
-                <input type="text" name="email" value="'.$_SESSION["signup_data"]["email"].'">';
+                        echo '
+                        <input class="user_input" type="text" id="email" name="email" placeholder="Email" value="'.$_SESSION["signup_data"]["email"].'" required>';
     
-            } else {
-                echo '<label for="email">Email</label>
-                <input type="text" name="email">';
-            }
-        
+                    } else {
+                        echo '
+                        <input class="user_input" type="text" id="email" name="email" placeholder="Email" required>';
+                    }
             
-        echo'<br>
-            <button>Sign Up</button>
-        </form>
-    
+                    echo'<br>
+                    <button class="modal_signup_btn" type="submit">Sign Up</button>
+                    </form>
+                </div>
+            </div>
         <?php
         check_signup_errors();
         ?>
-        </div>';
+        </div>
+        </section>
+        </main>';
     }
 }
 

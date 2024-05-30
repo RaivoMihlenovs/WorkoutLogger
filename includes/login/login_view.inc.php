@@ -4,7 +4,15 @@ declare(strict_types=1);
 
 function login_form(){
     if (isset($_SESSION["user_id"])) {
-        echo '<h1>Welcome '. $_SESSION["user_username"].'</h1>
+        echo '<nav>
+        <h3>Welcome '. $_SESSION["user_username"].'</h3>
+        <div>
+        <form action="includes/logout.inc.php" method="post">
+              <br>
+              <button>Logout</button>
+              </form>
+        </div>
+        </nav>
         <p>What would you like to do?</p>
         <form method="post"> 
         <input type="submit" name="viewWrkBtn"
@@ -14,29 +22,28 @@ function login_form(){
                 value="Create a new workout"/> 
         </form>
         ';
-
-        echo '<form action="includes/logout.inc.php" method="post">
-              <br>
-              <button>Logout</button>
-              </form>';
     } else {
-        echo   '<h1>Login to get started</h1>
+        echo   '<nav>
                 <div>
-                <h1>Login</h1>
-                <form action="includes/login/login.inc.php" method="post">
-                    <label for="username">Username</label>
-                    <input type="text" name="username">
-                    <br>
-                    <label for="pwd">Password</label>
-                    <input type="password" name="pwd">
-                    <br>
-                    <button>Login</button>
+                <form class="signin_form" action="includes/login/login.inc.php" method="post">
+                    <h3>Login to get started</h3>
+                    <div>
+                        <div>    
+                            <input class="user_input" type="text" name="username" placeholder="Username">
+                        </div>
+                        <div>
+                            <input class="user_input" type="password" name="pwd" placeholder="Password">
+                        </div>
+                        <br>
+                        <button class="login_btn">→</button>
+                    </div>
                 </form>
 
                 <?php
                 check_login_errors();
                 ?>
-                </div>';
+                </div>
+                </nav>';
     }
 }
 
@@ -58,21 +65,22 @@ function check_login_errors(){
     }
 }
 
-if(isset($_POST['viewWrkBtn'])) { 
+if(isset($_POST['viewWrkBtn'])) {
     if (!empty($_SESSION["user_workouts"])) {
     foreach ($_SESSION["user_workouts"] as $workout) {
-        echo $workout["workout_name"] . " " . $workout["sets"] . " sets of " . $workout["reps"] . " reps using " . $workout["weight"] . "kg<br>";
+        echo $workout["workout_name"] . " " . $workout["weight"] . "kg" . " for " . $workout["sets"] . " sets of " . $workout["reps"] . " reps<br>";
     }
     } else {
         echo "No workouts found";
     }
     
 } 
+
 if(isset($_POST['showCreateWrkBtn'])) { 
     echo '<div class="wrkCreateView">
     <br>
       <br>
-    <form action="includes/workout/workout.inc.php" method="post">
+    <form action="includes/login/workout.inc.php" method="post">
     <label for="workout_name">Workout name</label>
     <input type="text" name="workout_name">
     <br>

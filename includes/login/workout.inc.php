@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         require_once 'login_contr.inc.php';
 
         create_workout($pdo, $workout_name, $sets, $reps, $weight, $_SESSION["user_id"]);
+        $_SESSION["user_workouts"] = get_workouts($pdo, $_SESSION["user_id"]);
 
         $pdo = null;
         $stmt = null;

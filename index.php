@@ -17,7 +17,7 @@ require_once 'includes/login/login_view.inc.php';
         login_form();
         signup_form();
     ?>
-    <img src="design.png">
-    <!-- <script src="script.js"></script> -->
+
+<script src="script.js"></script>
 </body>
 </html>

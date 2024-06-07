@@ -34,9 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
-        $newSessionId = session_create_id();
-        $sessionId = $newSessionId . "_" . $result["id"];
-        session_id($sessionId);
+        session_regenerate_id(true);
 
         $_SESSION["user_id"] = $result["id"];
         $_SESSION["user_username"] = htmlspecialchars($result["username"]);
@@ -46,14 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["user_workouts"] = get_workouts($pdo, $_SESSION["user_id"]);
 
         header("Location: ../../index.php?login=success");
-        $pdo = null;
-        $stmt = null;
-
-        die();
+        exit();
     } catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
 } else {
     header("Location: ../../index.php");
-    die();
+    exit();
 }

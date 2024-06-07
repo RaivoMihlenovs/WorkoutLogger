@@ -29,6 +29,14 @@ function is_password_wrong(string $pwd, string $hashedPwd)
     }
 }
 
-function create_workout(object $pdo, string $workout_name, int $sets, int $reps, int $weight, int $usersId){
-    set_workout($pdo, $workout_name, $sets, $reps, $weight, $usersId);
+function create_workout(object $pdo, string $workout_name, int $userId){
+    set_workout($pdo, $workout_name, $userId);
+}
+
+function show_workouts(object $pdo, int $userId){
+    get_workouts($pdo, $userId);
+}
+
+function create_exercise(object $pdo, string $exercise_name, int $weight, int $sets, int $reps, int $workout_id){
+set_exercise($pdo, $exercise_name, $weight, $sets, $reps, $workout_id);
 }

@@ -4,24 +4,75 @@ declare(strict_types=1);
 
 function login_form(){
     if (isset($_SESSION["user_id"])) {
-        echo '<nav>
+        echo '
+        <nav>
+        <div class="nav_content">
         <h3>Welcome '. $_SESSION["user_username"].'</h3>
-        <div>
-        <form action="includes/logout.inc.php" method="post">
-              <br>
-              <button>Logout</button>
-              </form>
+        <form method="post" class="nav_form"> 
+        <input class="nav_btn" type="submit" name="create_workout" value="Create Workout"/> 
+        <input class="nav_btn" type="submit" name="edit_workout" value="Edit Workout"/> 
+        <input class="nav_btn" type="submit" name="delete_workout" value="Delete Workout"/> 
+        </form>
+        <form class="nav_form" action="includes/logout.inc.php" method="post">
+            <button class="logout_btn">Logout</button>
+        </form>
         </div>
         </nav>
-        <p>What would you like to do?</p>
-        <form method="post"> 
-        <input type="submit" name="viewWrkBtn"
-                value="View workouts"/> 
-          
-        <input type="submit" name="showCreateWrkBtn"
-                value="Create a new workout"/> 
-        </form>
-        ';
+        <section class="section-1">
+        <ul class="workout_list">';
+
+        foreach ($_SESSION["user_workouts"] as $workout) {
+            echo '
+            <li class="workout_list_container">
+            <ol class="exercise_list">
+            <li> <h3>'.$workout["name"].'</h3></li>';
+
+            // Query for exercises associated with this workout
+            require_once 'includes/dbh.inc.php'; // Include your database connection file
+            $workout_id = $workout["id"];
+            $query = "SELECT * FROM exercise WHERE workoutId = :workout_id;";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':workout_id', $workout_id);
+            $stmt->execute();
+            $exercises = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($exercises) > 0) {
+                // Display each exercise
+                foreach ($exercises as $exercise) {
+                    echo '<li>'.$exercise["name"].' - Weight: '.$exercise["weight"].'kg Sets: '.$exercise["sets"].' Reps: '.$exercise["reps"].'</li>';
+                }
+            } else {
+                // Display exercise form if no exercises are found
+                echo '
+                <form class="create_exercise_form" action="includes/login/exercise.inc.php" method="post">
+                <input type="text" class="user_input" name="exercise_name" placeholder="Exercise Name">
+                <input type="number" class="user_input" name="weight" placeholder="Weight">
+                <input type="number" class="user_input" name="sets" placeholder="Sets">
+                <input type="number" class="user_input" name="reps" placeholder="Reps">
+                <input type="hidden" value="'.$workout_id.'" name="workout_id">
+                <button class="modal_signup_btn">Add Exercise</button>
+                </form>';
+            }
+
+            echo '</ol>
+            </li>';
+        }
+
+        if(isset($_POST['create_workout'])) { 
+            echo '
+            <li>
+            <ol class="exercise_list">
+            <form class="create_workout_form" action="includes/login/workout.inc.php" method="post">
+            <input type="text" class="user_input" name="workout_name" placeholder="Workout Name">
+            <button class="modal_signup_btn">Create</button>
+            </form>
+            </ol>
+            </li>'; 
+        }
+
+        echo '
+        </ul>
+        </section>';
     } else {
         echo   '<nav>
                 <div>
@@ -65,35 +116,6 @@ function check_login_errors(){
     }
 }
 
-if(isset($_POST['viewWrkBtn'])) {
-    if (!empty($_SESSION["user_workouts"])) {
-    foreach ($_SESSION["user_workouts"] as $workout) {
-        echo $workout["workout_name"] . " " . $workout["weight"] . "kg" . " for " . $workout["sets"] . " sets of " . $workout["reps"] . " reps<br>";
-    }
-    } else {
-        echo "No workouts found";
-    }
-    
-} 
-
-if(isset($_POST['showCreateWrkBtn'])) { 
-    echo '<div class="wrkCreateView">
-    <br>
-      <br>
-    <form action="includes/login/workout.inc.php" method="post">
-    <label for="workout_name">Workout name</label>
-    <input type="text" name="workout_name">
-    <br>
-    <label for="sets">Sets</label>
-    <input type="number" name="sets">
-    <br>
-    <label for="reps">Reps</label>
-    <input type="number" name="reps">
-    <br>
-    <label for="weight">Weight</label>
-    <input type="number" name="weight">
-    <br>
-    <button>Create</button>
-    </form>
-    </div>'; 
-} 
+$create_workout = isset($_POST['create_workout']);
+$edit_workout = isset($_POST['edit_workout']);
+$delete_workout = isset($_POST['delete_workout']);

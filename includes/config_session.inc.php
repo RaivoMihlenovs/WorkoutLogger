@@ -8,7 +8,8 @@ session_set_cookie_params([
     'domain' => 'localhost',
     'path' => '/',
     'secure' => true,
-    'httponly' => true
+    'httponly' => true,
+    'samesite' => 'None'
 ]);
 
 session_start();

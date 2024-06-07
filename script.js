@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   };
 
   signUpForm.onsubmit = function (event) {
-    alert("Sign-up form submitted!");
     modal.style.display = "none";
   };
 });

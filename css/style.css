@@ -1,7 +1,23 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("Roboto-Regular.ttf");
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto";
+  font-style: normal;
   margin: 0%;
   font-size: small;
+}
+
+h3 {
+  color: white;
+  align-self: center;
+}
+
+h2 {
+  color: white;
+  justify-content: center;
 }
 
 nav {
@@ -9,9 +25,75 @@ nav {
   background-color: rgb(31, 31, 31);
 }
 
-h3 {
+.nav_content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav_btn {
+  background-color: transparent;
   color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.nav_form {
   align-self: center;
+}
+
+.nav_btn:hover {
+  background-color: rgb(46, 26, 85);
+}
+
+.create_workout_form {
+  margin-top: 15px;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.workout_list_container {
+  display: flex;
+  justify-content: center; /* Center the .workout_list horizontally */
+  width: 100%;
+}
+
+.workout_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr));
+  gap: 20px;
+  padding: 10px;
+  list-style: none;
+  top: 10px;
+  left: 0px;
+  z-index: 3;
+}
+
+.workout_list > li {
+  overflow: hidden;
+  text-wrap: wrap;
+  background-color: rgba(62, 26, 146, 0.5);
+  border-radius: 20px;
+}
+
+.create_workout_list {
+  padding: 0;
+  text-align: center;
+  color: white;
+}
+
+.exercise_list {
+  padding: 0;
+  width: 30vb;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise_list li {
+  text-align: center;
+  color: white;
 }
 
 .section-1 {
@@ -21,6 +103,8 @@ h3 {
   background-image: url("https://upload-os-bbs.hoyolab.com/upload/2024/04/21/182927620/220cdf678ccc6150338ed22907228ccc_4082154599540517094.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_80");
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
 }
 
 .section-1::before {
@@ -30,13 +114,8 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Adjust the opacity to control the dimming effect */
-  z-index: 1; /* Ensures the overlay is below the content */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .content {
@@ -44,7 +123,30 @@ h3 {
   position: absolute;
   bottom: 35%;
   left: 10%;
-  z-index: 2; /* Ensures the content is above the overlay */
+  z-index: 2;
+}
+
+.user_input {
+  border-radius: 20px;
+  border: 2px solid rgb(62, 26, 146);
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  width: 70%;
+}
+
+.login_btn {
+  border-radius: 20px;
+  outline: none;
+  background-color: rgb(31, 31, 31);
+  border: none;
+  font-size: 2.2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.login_btn:hover {
+  color: rgb(78, 43, 141);
 }
 
 .signup-p {
@@ -62,30 +164,14 @@ h3 {
   display: flex;
 }
 
-.user_input {
-  border-radius: 20px;
-  border: 2px solid red;
-  padding: 10px;
-  text-align: center;
-  margin-right: 1rem;
-}
-
-.login_btn {
-  border-radius: 20px;
-  outline: none;
-  background-color: rgb(31, 31, 31);
-  border: none;
-  font-size: 2.2rem;
-  color: white;
-  cursor: pointer;
-}
-.login_btn:hover {
-  color: red;
+.signup_form {
+  display: flex;
+  flex-direction: column;
 }
 
 .signup_btn {
   border-radius: 20px;
-  background-color: red;
+  background-color: rgb(62, 26, 146);
   color: white;
 }
 
@@ -94,32 +180,20 @@ h3 {
   font-size: 36px;
   cursor: pointer;
   border-radius: 20px;
-  background-color: red;
+  background-color: rgb(62, 26, 146);
   color: white;
   border: none;
   font-weight: 600;
 }
 
-#openModalBtn:hover {
-  background-color: darkred;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
-.modal_signup_btn {
-  cursor: pointer;
-  border-radius: 20px;
-  background-color: red;
-  color: white;
-  border: none;
-  font-weight: 600;
-  padding: 10px 20px; /* Add padding to the button */
-  margin-top: 10px; /* Add margin to separate it from other elements */
-  width: fit-content; /* Set width to fit the content */
-}
-
-.modal_signup_btn:hover {
-  background-color: darkred;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -129,14 +203,29 @@ h3 {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
   padding-top: 60px;
+  animation: fadeIn 0.5s;
 }
 
-h2 {
+#openModalBtn:hover {
+  background-color: rgb(46, 26, 85);
+}
+
+.modal_signup_btn {
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: rgb(62, 26, 146);
   color: white;
-  justify-content: center;
+  border: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  margin-top: 10px;
+  width: fit-content;
+}
+
+.modal_signup_btn:hover {
+  background-color: rgb(46, 26, 85);
 }
 
 .modal-content {
@@ -159,16 +248,22 @@ h2 {
 
 .close:hover,
 .close:focus {
-  color: red;
+  color: rgb(62, 26, 146);
   text-decoration: none;
   cursor: pointer;
 }
 
-.signup_form {
-  display: flex;
-  flex-direction: column;
+.logout_btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: rgb(62, 26, 146);
+  color: white;
+  border: none;
+  font-weight: 600;
 }
 
-.logout_btn {
-  display: flex;
+.logout_btn:hover {
+  background-color: rgb(46, 26, 85);
 }

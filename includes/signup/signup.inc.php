@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         require_once 'signup_model.inc.php';
         require_once 'signup_contr.inc.php';
         
-        // ERROR HANDLERS
         $errors = [];
 
         if (is_input_empty($username, $pwd, $email)) {

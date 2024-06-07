@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $workout_name = $_POST["workout_name"];
+    $workout_id = $_POST["workout_id"];
 
     try {
         require_once '../config_session.inc.php';
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
-        create_workout($pdo, $workout_name, $_SESSION["user_id"]);
+        edit_workout($pdo, $workout_name, $workout_id, $_SESSION["user_id"]);
 
         $_SESSION["user_workouts"] = get_workouts($pdo, $_SESSION["user_id"]);
 

@@ -22,3 +22,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
     modal.style.display = "none";
   };
 });
+
+function deleteExercise(id) {
+  var liDocuments = document.getElementById(id);
+  liDocuments.remove();
+
+  var select = document.getElementsByName("selected_exercise_id");
+  for (var i = 0; i < select.length; i++) {
+    const currSelect = select[i];
+    for (var j = 0; j < currSelect.childNodes.length; j++) {
+      const currChild = currSelect.childNodes[j];
+      if (currChild.nodeName == "OPTION") {
+        if (currChild.value == id.toString()) {
+          currChild.remove();
+        }
+      }
+    }
+  }
+}

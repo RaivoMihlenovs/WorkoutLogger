@@ -9,7 +9,9 @@ function check_signup_errors(){
         echo "<br>";
 
         foreach ($errors as $error){
-            echo '<p>' . $error . '</p>';
+            echo '<p style="color: red;
+            font-size: x-large;
+            display: inline;">' . $error . '</p><br>';
         }
 
         unset($_SESSION["errors_signup"]);
@@ -29,7 +31,7 @@ function signup_form(){
         <p class="signup-p"> 
         Log your workouts effortlessly.</p>
         <button id="openModalBtn">Sign Up</button>
-        <p>Start now risk free! 30 Day money-back guarantee</p>
+        <p>Sign up now to start tracking your workouts.</p>
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>

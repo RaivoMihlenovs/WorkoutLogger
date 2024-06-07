@@ -12,5 +12,5 @@ CREATE TABLE exercise (
     reps int not null,
     weight int not null,
     workoutId int not null,
-    PRIMARY KEY(id), FOREIGN KEY(workoutId) REFERENCES workout (id) 
+    PRIMARY KEY(id), FOREIGN KEY(workoutId) REFERENCES workout (id) ON DELETE CASCADE 
 );

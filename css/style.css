@@ -92,7 +92,7 @@ li::-webkit-scrollbar {
 
 .workout_list_container {
   display: flex;
-  justify-content: center; /* Center the .workout_list horizontally */
+  justify-content: center;
   width: 100%;
   overflow: auto;
 }
@@ -155,9 +155,8 @@ li::-webkit-scrollbar {
   flex-direction: column;
   padding: 20px;
   color: white;
-
-  max-width: 90vw; /* Adjust the value according to your preference */
-  margin: 0 auto; /* Center the section horizontally */
+  max-width: 90vw;
+  margin: 0 auto;
   padding: 20px;
 }
 

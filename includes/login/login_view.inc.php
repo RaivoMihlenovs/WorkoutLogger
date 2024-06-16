@@ -65,7 +65,7 @@ function login_form() {
                 </form>';
             }
 
-            require_once 'includes/dbh.inc.php'; // Include your database connection file
+            require_once 'includes/dbh.inc.php';
             $workout_id = $workout["id"];
             $query = "SELECT * FROM exercise WHERE workoutId = :workout_id;";
             $stmt = $pdo->prepare($query);
@@ -151,8 +151,6 @@ function login_form() {
                         $stmt = $pdo->prepare($query);
                         $stmt->bindParam(':exercise_id', $selected_exercise_id);
                         $stmt->execute();
-
-                        // header("Location: ../../index.php");
 
                         echo '<script type="text/javascript">
                         deleteExercise(' . $selected_exercise_id . ');

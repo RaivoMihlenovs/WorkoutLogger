@@ -35,13 +35,8 @@ function delete_workout(object $pdo, string $workout_name, int $workout_id, int 
     $stmt->bindParam(':workout_name', $workout_name);
     $stmt->bindParam(':user_id', $user_id);
     $stmt->bindParam(':workout_id', $workout_id);
-
-    // Debugging SQL query
     error_log("Executing SQL query: $query with name: $workout_name, userId: $user_id, workoutId: $workout_id");
-
     $stmt->execute();
-
-    // Check if any rows were affected
     $affected_rows = $stmt->rowCount();
     error_log("Rows affected: $affected_rows");
 }

@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $workout_name = $_POST["workout_name"];
     $workout_id = $_POST["workout_id"];
 
-    // Debugging output
     error_log("Workout Name: $workout_name");
     error_log("Workout ID: $workout_id");
 
